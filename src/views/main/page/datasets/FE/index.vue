@@ -1,7 +1,7 @@
 <template>
   <BasicDrawer v-bind="$attrs" @register="innerRegister" :isDetail="true" title="特征工程">
     <Layout>
-      <LayoutSider><Sidebar /></LayoutSider>
+      <LayoutSider collapsible collapsedWidth="0" theme="light"><Sidebar /></LayoutSider>
       <LayoutContent>
         <div class="dndflow" @drop="onDrop">
           <VueFlow :nodes="nodes" @dragover="onDragOver" @dragleave="onDragLeave">
@@ -39,7 +39,8 @@
 
   const [innerRegister] = useDrawerInner((_data) => {});
 
-  const { onConnect, addEdges, onEdgeContextMenu, removeEdges } = useVueFlow();
+  const { onConnect, addEdges, onEdgeContextMenu, removeEdges, onNodeContextMenu, removeNodes } =
+    useVueFlow();
 
   const { onDragOver, onDrop, onDragLeave, isDragOver } = useDragAndDrop();
 
@@ -68,6 +69,29 @@
     });
   });
 
+  onNodeContextMenu(({ event, node }) => {
+    createContextMenu({
+      event: event as MouseEvent,
+      items: [
+        {
+          label: '编辑',
+          icon: 'ant-design:edit-outlined',
+          handler: () => {
+            createMessage.success('click edit');
+          },
+        },
+        {
+          label: '删除',
+          icon: 'ant-design:delete-outlined',
+          handler: () => {
+            removeNodes(node);
+            createMessage.success('删除成功');
+          },
+        },
+      ],
+    });
+  });
+
   onConnect((param: Connection) => {
     addEdges(param);
   });
@@ -80,7 +104,8 @@
   @import '@vue-flow/controls/dist/style.css';
   @import '@vue-flow/minimap/dist/style.css';
   @import '@vue-flow/node-resizer/dist/style.css';
-
+</style>
+<style scoped>
   .dndflow {
     display: flex;
     flex-direction: column;
@@ -88,47 +113,8 @@
     height: calc(100vh - 152px);
   }
 
-  .dndflow aside {
-    padding: 15px 10px;
-    border-right: 1px solid #eee;
-    background: rgba(16 185 129 / 75%);
-    box-shadow: 0 5px 10px #0000004d;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .dndflow aside .nodes > * {
-    margin-bottom: 10px;
-    box-shadow: 5px 5px 10px 2px #00000040;
-    font-weight: 500;
-    cursor: grab;
-  }
-
-  .dndflow aside .description {
-    margin-bottom: 10px;
-  }
-
   .dndflow .vue-flow-wrapper {
     flex-grow: 1;
     height: 100%;
   }
-
-  /* @media screen and (min-width: 640px) {
-    .dndflow {
-      flex-direction: row;
-    }
-
-    .dndflow aside {
-      min-width: 25%;
-    }
-  }
-
-  @media screen and (max-width: 639px) {
-    .dndflow aside .nodes {
-      display: flex;
-      flex-direction: row;
-      gap: 5px;
-    }
-  } */
 </style>
