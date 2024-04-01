@@ -1,0 +1,12 @@
+{
+  "manager": {
+    "manager": "Manager"
+  },
+  "page": {
+    "datasetsManager": "Datasets manager",
+    "manager": {
+      "manager": "Manager"
+    },
+    "page": "Page"
+  }
+}

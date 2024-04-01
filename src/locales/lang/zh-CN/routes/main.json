@@ -1,0 +1,12 @@
+{
+  "manager": {
+    "manager": "管理"
+  },
+  "page": {
+    "datasetsManager": "数据集管理",
+    "manager": {
+      "manager": "管理"
+    },
+    "page": "页面"
+  }
+}
