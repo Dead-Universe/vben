@@ -55,7 +55,7 @@
 
   // import { defHttp } from '@/utils/http/axios';
 
-  import FE from './FE/index.vue';
+  import FE from './FE/Drawer.vue';
   import EDA from './EDA/index.vue';
 
   const [registerEDA, { openDrawer: openEDADrawer }] = useDrawer();

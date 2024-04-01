@@ -1,28 +1,22 @@
 <template>
-  <BasicDrawer v-bind="$attrs" @register="innerRegister" :isDetail="true" title="特征工程">
-    <Layout>
-      <LayoutSider collapsible collapsedWidth="0" theme="light"><Sidebar /></LayoutSider>
-      <LayoutContent>
-        <div class="dndflow" @drop="onDrop">
-          <VueFlow :nodes="nodes" @dragover="onDragOver" @dragleave="onDragLeave">
-            <DropzoneBackground
-              :style="{
-                backgroundColor: isDragOver ? '#e7f3ff' : 'transparent',
-                transition: 'background-color 0.2s ease',
-              }"
-            />
-          </VueFlow>
-        </div>
-      </LayoutContent>
-    </Layout>
-    <template #titleToolbar>
-      <a-button type="default" @click="open" preIcon="ant-design:setting-outlined"> 设置 </a-button>
-    </template>
-  </BasicDrawer>
+  <Layout>
+    <LayoutSider collapsible collapsedWidth="0" theme="light"><Sidebar /></LayoutSider>
+    <LayoutContent>
+      <div class="dndflow" @drop="onDrop">
+        <VueFlow :nodes="nodes" @dragover="onDragOver" @dragleave="onDragLeave">
+          <DropzoneBackground
+            :style="{
+              backgroundColor: isDragOver ? '#e7f3ff' : 'transparent',
+              transition: 'background-color 0.2s ease',
+            }"
+          />
+        </VueFlow>
+      </div>
+    </LayoutContent>
+  </Layout>
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
   import { type Connection, VueFlow, useVueFlow } from '@vue-flow/core';
   import DropzoneBackground from './DropzoneBackground.vue';
   import { Layout, LayoutContent, LayoutSider } from 'ant-design-vue';
@@ -36,8 +30,6 @@
   const { createMessage } = useMessage();
 
   // const [register, { openDrawer }] = useDrawer();
-
-  const [innerRegister] = useDrawerInner((_data) => {});
 
   const { onConnect, addEdges, onEdgeContextMenu, removeEdges, onNodeContextMenu, removeNodes } =
     useVueFlow();
@@ -95,8 +87,6 @@
   onConnect((param: Connection) => {
     addEdges(param);
   });
-
-  const open = () => {};
 </script>
 <style>
   @import '@vue-flow/core/dist/style.css';
