@@ -14,22 +14,25 @@
       </div>
     </LayoutContent>
   </Layout>
+  <Modal @register="register" />
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import { type Connection, VueFlow, useVueFlow } from '@vue-flow/core';
-  import DropzoneBackground from './DropzoneBackground.vue';
   import { Layout, LayoutContent, LayoutSider } from 'ant-design-vue';
+  import { type Connection, VueFlow, useVueFlow } from '@vue-flow/core';
+
   import Sidebar from './Sidebar.vue';
-  import useDragAndDrop from './useDnD';
+  import Modal from './Modal.vue';
+  import DropzoneBackground from './DropzoneBackground.vue';
 
   import { useContextMenu } from '@/hooks/web/useContextMenu';
   import { useMessage } from '@/hooks/web/useMessage';
+  import { useModal } from '@/components/Modal';
+
+  import useDragAndDrop from './useDnD';
 
   const [createContextMenu] = useContextMenu();
   const { createMessage } = useMessage();
-
-  // const [register, { openDrawer }] = useDrawer();
 
   const { onConnect, addEdges, onEdgeContextMenu, removeEdges, onNodeContextMenu, removeNodes } =
     useVueFlow();
@@ -37,6 +40,8 @@
   const { onDragOver, onDrop, onDragLeave, isDragOver } = useDragAndDrop();
 
   const nodes = ref([]);
+
+  const [register, { openModal: openModal }] = useModal();
 
   onEdgeContextMenu(({ event, edge }) => {
     createContextMenu({
@@ -69,7 +74,7 @@
           label: '编辑',
           icon: 'ant-design:edit-outlined',
           handler: () => {
-            createMessage.success('click edit');
+            openModal(true, node);
           },
         },
         {

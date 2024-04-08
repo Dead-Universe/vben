@@ -36,10 +36,7 @@ export default function useDragAndDrop() {
     document.body.style.userSelect = dragging ? 'none' : '';
   });
 
-  function onDragStart(
-    event: { dataTransfer: { setData: (arg0: string, arg1: any) => void; effectAllowed: string } },
-    type: string | undefined,
-  ) {
+  function onDragStart(event: DragEvent, type: string) {
     if (event.dataTransfer) {
       event.dataTransfer.setData('application/vueflow', type);
       event.dataTransfer.effectAllowed = 'move';
@@ -56,7 +53,7 @@ export default function useDragAndDrop() {
    *
    * @param {DragEvent} event
    */
-  function onDragOver(event: any) {
+  function onDragOver(event: DragEvent) {
     event.preventDefault();
 
     if (draggedType.value) {
