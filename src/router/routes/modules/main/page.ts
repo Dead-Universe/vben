@@ -32,6 +32,22 @@ const page: AppRouteModule = {
             title: t('routes.main.page.datasetsManager'),
           },
         },
+        {
+          path: 'modelManagement',
+          name: 'modalManagement',
+          component: () => import('@/views/main/page/modelManagement/index.vue'),
+          meta: {
+            title: t('routes.main.page.modalManagement'),
+          },
+        },
+        {
+          path: 'trainingSetManagement',
+          name: 'trainingSetManagement',
+          component: () => import('@/views/main/page/trainingSetManagement/index.vue'),
+          meta: {
+            title: t('routes.main.page.trainingSetManagement'),
+          },
+        },
       ],
     },
     // =============================list end=============================
