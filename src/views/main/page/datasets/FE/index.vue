@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <LayoutSider collapsible collapsedWidth="0" theme="light"><Sidebar /></LayoutSider>
+    <LayoutSider collapsible collapsedWidth="0" theme="light" width="240"><Sidebar /></LayoutSider>
     <LayoutContent>
       <div class="dndflow" @drop="onDrop">
         <VueFlow :nodes="nodes" @dragover="onDragOver" @dragleave="onDragLeave">

@@ -1,7 +1,9 @@
 <template>
   <PageWrapper :class="prefixCls" title="数据集管理" contentFullHeight fixedHeight>
     <template #headerContent>
-      <a-button type="primary" preIcon="ant-design:cloud-upload-outlined">上传</a-button>
+      <a-button type="primary" preIcon="ant-design:cloud-upload-outlined" @click="handleUpdate">
+        上传
+      </a-button>
     </template>
 
     <div :class="`${prefixCls}__container`">
@@ -91,6 +93,8 @@
   const openFE = (id: number | string) => {
     openFEDrawer(true, { id: id });
   };
+
+  const handleUpdate = () => {};
 
   onMounted(() => {
     fetch(fakeDataUrl)

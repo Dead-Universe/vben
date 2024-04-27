@@ -2,11 +2,21 @@
   <BasicDrawer v-bind="$attrs" @register="innerRegister" :isDetail="true" title="特征工程">
     <FE />
     <template #titleToolbar>
-      <a-button type="default" @click="open" preIcon="ant-design:setting-outlined"> 设置 </a-button>
+      <a-button size="default" type="text" @click="open">
+        <template #icon>
+          <SaveOutlined />
+        </template>
+      </a-button>
+      <a-button size="default" type="text" @click="open">
+        <template #icon>
+          <RightSquareOutlined />
+        </template>
+      </a-button>
     </template>
   </BasicDrawer>
 </template>
 <script lang="ts" setup>
+  import { SaveOutlined, RightSquareOutlined } from '@ant-design/icons-vue';
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
 
   import FE from './index.vue';

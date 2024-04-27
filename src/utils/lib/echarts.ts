@@ -8,8 +8,6 @@ import {
   PictorialBarChart,
   RadarChart,
   ScatterChart,
-  BoxplotChart,
-  ParallelChart,
 } from 'echarts/charts';
 
 import {
@@ -27,13 +25,9 @@ import {
   TimelineComponent,
   CalendarComponent,
   GraphicComponent,
-  DatasetComponent,
-  TransformComponent,
-  BrushComponent,
 } from 'echarts/components';
 
-import { SVGRenderer, CanvasRenderer } from 'echarts/renderers';
-import { UniversalTransition } from 'echarts/features';
+import { SVGRenderer } from 'echarts/renderers';
 
 echarts.use([
   LegendComponent,
@@ -58,13 +52,6 @@ echarts.use([
   CalendarComponent,
   GraphicComponent,
   ScatterChart,
-  BoxplotChart,
-  CanvasRenderer,
-  UniversalTransition,
-  DatasetComponent,
-  TransformComponent,
-  ParallelChart,
-  BrushComponent,
 ]);
 
 export default echarts;
