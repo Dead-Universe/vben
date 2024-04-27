@@ -4,6 +4,8 @@
   },
   "page": {
     "datasetsManager": "数据集管理",
+    "modalManagement": "模型管理",
+    "trainingSetManagement": "训练集管理",
     "manager": {
       "manager": "管理"
     },
