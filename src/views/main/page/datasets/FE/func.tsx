@@ -7,11 +7,11 @@ const validatorNumber = async (value, number) => {
   return Promise.resolve();
 };
 
-export const word2VecSettings: FormSchema[] = [
+const word2VecSettings: FormSchema[] = [
   {
     field: 'inputCol',
     component: 'Input',
-    label: '输入列名称',
+    label: '输入列',
     colProps: {
       span: 24,
     },
@@ -25,7 +25,6 @@ export const word2VecSettings: FormSchema[] = [
     },
     rules: [
       {
-        required: true,
         validator: async (_, value) => validatorNumber(value, 0),
         trigger: 'blur',
       },
@@ -41,7 +40,6 @@ export const word2VecSettings: FormSchema[] = [
     },
     rules: [
       {
-        required: true,
         validator: async (_, value) => validatorNumber(value, 0),
         trigger: 'blur',
       },
@@ -56,7 +54,6 @@ export const word2VecSettings: FormSchema[] = [
     },
     rules: [
       {
-        required: true,
         validator: async (_, value) => validatorNumber(value, 0),
         trigger: 'blur',
       },
@@ -72,7 +69,6 @@ export const word2VecSettings: FormSchema[] = [
     },
     rules: [
       {
-        required: true,
         validator: async (_, value) => validatorNumber(value, 1),
         trigger: 'blur',
       },
@@ -81,7 +77,7 @@ export const word2VecSettings: FormSchema[] = [
   {
     field: 'outputCol',
     component: 'Input',
-    label: '输出列名称',
+    label: '输出列',
     colProps: {
       span: 24,
     },
@@ -96,7 +92,6 @@ export const word2VecSettings: FormSchema[] = [
     },
     rules: [
       {
-        required: true,
         validator: async (_, value) => validatorNumber(value, 1),
         trigger: 'blur',
       },
@@ -111,7 +106,6 @@ export const word2VecSettings: FormSchema[] = [
     },
     rules: [
       {
-        required: true,
         validator: async (_, value) => validatorNumber(value, 0),
         trigger: 'blur',
       },
@@ -128,7 +122,6 @@ export const word2VecSettings: FormSchema[] = [
     },
     rules: [
       {
-        required: true,
         validator: async (_, value) => validatorNumber(value, 0),
         trigger: 'blur',
       },
@@ -136,7 +129,7 @@ export const word2VecSettings: FormSchema[] = [
   },
 ];
 
-export const countVectorizerSettings: FormSchema[] = [
+const countVectorizerSettings: FormSchema[] = [
   {
     field: 'binary',
     component: 'Switch',
@@ -151,7 +144,7 @@ export const countVectorizerSettings: FormSchema[] = [
   {
     field: 'inputCol',
     component: 'Input',
-    label: '输入列名称',
+    label: '输入列',
     colProps: {
       span: 24,
     },
@@ -210,7 +203,7 @@ export const countVectorizerSettings: FormSchema[] = [
   {
     field: 'outputCol',
     component: 'Input',
-    label: '输出列名称',
+    label: '输出列',
     colProps: {
       span: 24,
     },
@@ -232,11 +225,12 @@ export const countVectorizerSettings: FormSchema[] = [
   },
 ];
 
-export const FeatureHasherSettings: FormSchema[] = [
+const featureHasherSettings: FormSchema[] = [
   {
     field: 'categoricalCols',
     component: 'Input',
-    label: '将数值列视为分类列',
+    label: '分类列列表',
+    helpMessage: '将数值列视为分类列',
     colProps: {
       span: 24,
     },
@@ -244,7 +238,7 @@ export const FeatureHasherSettings: FormSchema[] = [
   {
     field: 'inputCols',
     component: 'Input',
-    label: '输入列名称',
+    label: '输入列列表',
     colProps: {
       span: 24,
     },
@@ -252,7 +246,7 @@ export const FeatureHasherSettings: FormSchema[] = [
   {
     field: 'outputCol',
     component: 'Input',
-    label: '输出列名称',
+    label: '输出列',
     colProps: {
       span: 24,
     },
@@ -273,27 +267,11 @@ export const FeatureHasherSettings: FormSchema[] = [
   },
 ];
 
-export const BinarizerSettings: FormSchema[] = [
-  {
-    field: 'inputCol',
-    component: 'Input',
-    label: '输入列名称',
-    colProps: {
-      span: 24,
-    },
-  },
-  {
-    field: 'outputCol',
-    component: 'Input',
-    label: '输出列名称',
-    colProps: {
-      span: 24,
-    },
-  },
+const binarizerSettings: FormSchema[] = [
   {
     field: 'inputCols',
     component: 'Input',
-    label: '输入列名称(多选)',
+    label: '输入列列表',
     colProps: {
       span: 24,
     },
@@ -301,31 +279,15 @@ export const BinarizerSettings: FormSchema[] = [
   {
     field: 'outputCols',
     component: 'Input',
-    label: '输出列名称(多选)',
+    label: '输出列列表',
     colProps: {
       span: 24,
     },
-  },
-  {
-    field: 'threshold',
-    component: 'InputNumber',
-    label: '阈值',
-    helpMessage:
-      '参数用于二值化连续特征的阈值。大于阈值的特征将被二值化为1.0。等于或小于阈值的特征将被二值化为0.0',
-    colProps: {
-      span: 24,
-    },
-    rules: [
-      {
-        validator: async (_, value) => validatorNumber(value, 0),
-        trigger: 'blur',
-      },
-    ],
   },
   {
     field: 'thresholds',
     component: 'Input',
-    label: '阈值(多选)',
+    label: '阈值列表',
     helpMessage:
       '参数用于提供一组阈值来二值化连续特征。这适用于多列输入。如果处理多列且未设置阈值数组，但已设定阈值，则该阈值将应用于所有列。',
     colProps: {
@@ -334,11 +296,11 @@ export const BinarizerSettings: FormSchema[] = [
   },
 ];
 
-export const PCASettings: FormSchema[] = [
+const PCASettings: FormSchema[] = [
   {
     field: 'inputCol',
     component: 'Input',
-    label: '输入列名称',
+    label: '输入列',
     colProps: {
       span: 24,
     },
@@ -360,34 +322,18 @@ export const PCASettings: FormSchema[] = [
   {
     field: 'outputCol',
     component: 'Input',
-    label: '输出列名称',
+    label: '输出列',
     colProps: {
       span: 24,
     },
   },
 ];
 
-export const ImputerSettings: FormSchema[] = [
-  {
-    field: 'inputCol',
-    component: 'Input',
-    label: '输入列名称',
-    colProps: {
-      span: 24,
-    },
-  },
+const imputerSettings: FormSchema[] = [
   {
     field: 'inputCols',
     component: 'Input',
-    label: '输入列名称(多选)',
-    colProps: {
-      span: 24,
-    },
-  },
-  {
-    field: 'outputCol',
-    component: 'Input',
-    label: '输出列名称',
+    label: '输入列列表',
     colProps: {
       span: 24,
     },
@@ -395,10 +341,39 @@ export const ImputerSettings: FormSchema[] = [
   {
     field: 'outputCols',
     component: 'Input',
-    label: '输出列名称(多选)',
+    label: '输出列列表',
     colProps: {
       span: 24,
     },
+  },
+  {
+    field: 'missingValue',
+    component: 'Input',
+    label: '缺失值占位符',
+    helpMessage: '将估算所有缺失值的情况',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'relativeError',
+    component: 'InputNumber',
+    label: '相对误差',
+    helpMessage: '近似分位数算法的相对目标精度',
+    colProps: {
+      span: 24,
+    },
+    rules: [
+      {
+        validator: async (_, value) => {
+          if (value < 0 || value > 1) {
+            return Promise.reject('值必须在0到1之间');
+          }
+          return Promise.resolve();
+        },
+        trigger: 'blur',
+      },
+    ],
   },
   {
     field: 'strategy',
@@ -426,3 +401,290 @@ export const ImputerSettings: FormSchema[] = [
     },
   },
 ];
+
+const normalizerSettings: FormSchema[] = [
+  {
+    field: 'inputCol',
+    component: 'Input',
+    label: '输入列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'outputCol',
+    component: 'Input',
+    label: '输出列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'p',
+    component: 'InputNumber',
+    label: 'p范数',
+    colProps: {
+      span: 24,
+    },
+    rules: [
+      {
+        validator: async (_, value) => validatorNumber(value, 0),
+        trigger: 'blur',
+      },
+    ],
+  },
+];
+
+const standardScalerSettings: FormSchema[] = [
+  {
+    field: 'inputCol',
+    component: 'Input',
+    label: '输入列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'outputCol',
+    component: 'Input',
+    label: '输出列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'withMean',
+    component: 'Switch',
+    label: '均值归一化',
+    helpMessage: '是否将数据归一化为均值，以平均值为中心数据',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'withStd',
+    component: 'Switch',
+    label: '标准差归一化',
+    helpMessage: '是否将数据归一化为标准差，以标准差为单位数据',
+    colProps: {
+      span: 24,
+    },
+  },
+];
+
+const minMaxScalerSettings: FormSchema[] = [
+  {
+    field: 'inputCol',
+    component: 'Input',
+    label: '输入列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'outputCol',
+    component: 'Input',
+    label: '输出列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'max',
+    component: 'InputNumber',
+    label: '最大值',
+    helpMessage: '输出特征范围的上限',
+    colProps: {
+      span: 24,
+    },
+    rules: [
+      {
+        validator: async (_, value) => validatorNumber(value, 0),
+        trigger: 'blur',
+      },
+    ],
+  },
+  {
+    field: 'min',
+    component: 'InputNumber',
+    label: '最小值',
+    helpMessage: '输出特征范围的下限',
+    colProps: {
+      span: 24,
+    },
+    rules: [
+      {
+        validator: async (_, value) => validatorNumber(value, 0),
+        trigger: 'blur',
+      },
+    ],
+  },
+];
+
+const maxAbsScalerSettings: FormSchema[] = [
+  {
+    field: 'inputCol',
+    component: 'Input',
+    label: '输入列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'outputCol',
+    component: 'Input',
+    label: '输出列',
+    colProps: {
+      span: 24,
+    },
+  },
+];
+
+const vectorSlicerSettings: FormSchema[] = [
+  {
+    field: 'inputCol',
+    component: 'Input',
+    label: '输入列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'outputCol',
+    component: 'Input',
+    label: '输出列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'indices',
+    component: 'Input',
+    label: '索引',
+    helpMessage: '要提取的特征索引列表，特征不能与名称重叠',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'names',
+    component: 'Input',
+    label: '名称',
+    helpMessage: '要提取的特征名称列表，特征不能与索引重叠',
+    colProps: {
+      span: 24,
+    },
+  },
+];
+
+const RFormulaSettings: FormSchema[] = [
+  {
+    field: 'featuresCol',
+    component: 'Input',
+    label: '特征列列表',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'forceIndexLabel',
+    component: 'Switch',
+    label: '强制索引标签',
+    helpMessage: '强制将标签列视为索引列，无论是数字标签还是字符串标签',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'formula',
+    component: 'Input',
+    label: '公式',
+    helpMessage: 'R模型公式',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'handleInvalid',
+    component: 'Select',
+    label: '处理无效值',
+    defaultValue: 'error',
+    helpMessage:
+      '指定如何处理无效值。选项有“skip”（筛选出具有无效值的行）、“error”（抛出错误）或“keep”（将无效数据放入索引numLabels处的特殊附加存储桶中）。',
+    componentProps: {
+      options: [
+        {
+          label: '错误',
+          value: 'error',
+        },
+        {
+          label: '跳过',
+          value: 'skip',
+        },
+        {
+          label: '保留',
+          value: 'keep',
+        },
+      ],
+    },
+  },
+  {
+    field: 'labelCol',
+    component: 'Input',
+    label: '标签列名称',
+    colProps: {
+      span: 24,
+    },
+  },
+];
+
+const VarianceThresholdSelectorSettings: FormSchema[] = [
+  {
+    field: 'featuresCol',
+    component: 'Input',
+    label: '特征列列表',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'outputCol',
+    component: 'Input',
+    label: '输出列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'threshold',
+    component: 'InputNumber',
+    label: '方差阈值',
+    helpMessage: '特征选择的方差阈值，差异不大于此阈值的特征将被删除',
+    defaultValue: 0.0,
+    colProps: {
+      span: 24,
+    },
+    rules: [
+      {
+        validator: async (_, value) => validatorNumber(value, 0),
+        trigger: 'blur',
+      },
+    ],
+  },
+];
+
+export default {
+  word2VecSettings: word2VecSettings,
+  countVectorizerSettings: countVectorizerSettings,
+  featureHasherSettings: featureHasherSettings,
+  binarizerSettings: binarizerSettings,
+  PCASettings: PCASettings,
+  imputerSettings: imputerSettings,
+  normalizerSettings: normalizerSettings,
+  standardScalerSettings: standardScalerSettings,
+  minMaxScalerSettings: minMaxScalerSettings,
+  maxAbsScalerSettings: maxAbsScalerSettings,
+  vectorSlicerSettings: vectorSlicerSettings,
+  RFormulaSettings: RFormulaSettings,
+  VarianceThresholdSelectorSettings: VarianceThresholdSelectorSettings,
+};

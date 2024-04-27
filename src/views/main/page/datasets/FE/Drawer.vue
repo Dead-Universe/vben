@@ -2,12 +2,12 @@
   <BasicDrawer v-bind="$attrs" @register="innerRegister" :isDetail="true" title="特征工程">
     <FE />
     <template #titleToolbar>
-      <a-button size="default" type="text" @click="open">
+      <a-button size="middle" type="text" @click="open">
         <template #icon>
           <SaveOutlined />
         </template>
       </a-button>
-      <a-button size="default" type="text" @click="open">
+      <a-button size="middle" type="text" @click="open">
         <template #icon>
           <RightSquareOutlined />
         </template>

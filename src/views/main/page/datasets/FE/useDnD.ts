@@ -1,5 +1,5 @@
-import { useVueFlow } from '@vue-flow/core';
-import { Ref, ref, watch } from 'vue';
+import { type Node, useVueFlow } from '@vue-flow/core';
+import { type Ref, ref, watch } from 'vue';
 
 let id = 0;
 
@@ -36,9 +36,10 @@ export default function useDragAndDrop() {
     document.body.style.userSelect = dragging ? 'none' : '';
   });
 
-  function onDragStart(event: DragEvent, type: string) {
+  function onDragStart(event: DragEvent, type: string, func: string) {
     if (event.dataTransfer) {
       event.dataTransfer.setData('application/vueflow', type);
+      event.dataTransfer.setData('application/func', func);
       event.dataTransfer.effectAllowed = 'move';
     }
 
@@ -89,11 +90,15 @@ export default function useDragAndDrop() {
 
     const nodeId = getId();
 
-    const newNode = {
+    const func = event.dataTransfer?.getData('application/func');
+
+    const newNode: Node = {
       id: nodeId,
       type: draggedType.value,
       position,
-      label: `[${nodeId}]`,
+      data: {
+        label: `${func}`,
+      },
     };
 
     /**

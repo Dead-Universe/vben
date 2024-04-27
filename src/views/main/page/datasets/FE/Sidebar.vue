@@ -5,7 +5,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'word2Vec')"
         >
           Word2Vec
           <BasicHelp
@@ -15,7 +15,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'countVectorizer')"
         >
           CountVectorizer
           <BasicHelp text="计算文本数据中单词的出现次数，并将其转换为特征向量。" />
@@ -23,7 +23,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'featureHasher')"
         >
           FeatureHasher
           <BasicHelp text="一种对特征数据进行哈希编码的技术，通常用于高维数据。" />
@@ -35,7 +35,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'binarizer')"
         >
           Binarizer
           <BasicHelp text="将数值特征二值化。" />
@@ -43,7 +43,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'PCA')"
         >
           PCA
           <BasicHelp text="用于降维的技术，通过保留最重要的特征来减少数据集的复杂性。" />
@@ -51,7 +51,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'imputer')"
         >
           Imputer
           <BasicHelp text="用于处理缺失值，可以使用平均值、中位数或众数来填充。" />
@@ -59,7 +59,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'normalizer')"
         >
           Normalizer
           <BasicHelp text="对单个样本进行范数缩放，使之在特定的向量范数（如 L1, L2等）下等于1。" />
@@ -67,7 +67,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'standardScaler')"
         >
           StandardScaler
           <BasicHelp text="使用均值和标准差来标准化特征。" />
@@ -75,7 +75,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'minMaxScaler')"
         >
           MinMaxScaler
           <BasicHelp text="将每个特征缩放到给定的最小值与最大值之间。" />
@@ -83,7 +83,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'maxAbsScaler')"
         >
           MaxAbsScaler
           <BasicHelp text="按绝对值的最大值缩放数据。" />
@@ -95,7 +95,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'vectorSlicer')"
         >
           VectorSlicer
           <BasicHelp text="根据索引选择特征子集。" />
@@ -103,7 +103,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'RFormula')"
         >
           RFormula
           <BasicHelp text="一个特征转换方式，能够将模型公式转换为特征向量。" />
@@ -111,7 +111,7 @@
         <div
           class="vue-flow__node-default"
           :draggable="true"
-          @dragstart="onDragStart($event, 'default')"
+          @dragstart="onDragStart($event, 'default', 'varianceThresholdSelector')"
         >
           VarianceThresholdSelector
           <BasicHelp text="根据特征的方差选择特征，去除那些方差不满足某个阈值的特征。" />
@@ -122,7 +122,7 @@
 </template>
 <script lang="ts" setup>
   import useDragAndDrop from './useDnD';
-  import { BasicHelp } from '@/components/Basic/index';
+  import { BasicHelp } from '@/components/Basic';
   import { Flex } from 'ant-design-vue';
 
   import { CollapseContainer } from '@/components/Container';
@@ -135,11 +135,6 @@
     height: calc(100vh - 152px);
     overflow: auto;
     background-color: #f5f5f5;
-  }
-
-  .description {
-    color: #000;
-    text-align: center;
   }
 
   .nodes > * {

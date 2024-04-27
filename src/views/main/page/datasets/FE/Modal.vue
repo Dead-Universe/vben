@@ -1,86 +1,49 @@
 <template>
   <BasicModal v-bind="$attrs" @register="register" title="修改属性" @ok="handleOk">
     <div class="pt-3px pr-3px">
-      <BasicForm @register="registerForm" :model="modelRef" />
+      <BasicForm @register="registerForm" />
     </div>
   </BasicModal>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
   import { BasicModal, useModalInner } from '@/components/Modal';
-  import { BasicForm, FormSchema, useForm } from '@/components/Form';
+  import { BasicForm, useForm } from '@/components/Form';
+  import { cloneDeep } from 'lodash-es';
+  import settings from '@/views/main/page/datasets/FE/func';
+  import { type GraphNode } from '@vue-flow/core';
 
-  const schemas: FormSchema[] = [
-    {
-      field: 'field1',
-      component: 'Input',
-      label: '字段1',
-      colProps: {
-        span: 24,
-      },
-    },
-    {
-      field: 'field2',
-      component: 'Input',
-      label: '字段2',
-      colProps: {
-        span: 24,
-      },
-    },
-  ];
-
-  const modelRef = ref({});
-
-  var nodeRef: any = null;
-  var nodeData: any = null;
-  const [registerForm] = useForm({
-    labelWidth: 120,
-    schemas,
-    showActionButtonGroup: false,
-    actionColOptions: {
-      span: 24,
-    },
-  });
+  let nodeRef: any = null;
+  let [registerForm, { setProps, validate, resetFields, setFieldsValue }] = useForm({});
 
   const [register, { closeModal }] = useModalInner((data) => {
     data && onDataReceive(data);
   });
 
-  function onDataReceive(data: any) {
+  async function onDataReceive(data: GraphNode) {
     nodeRef = data;
-    nodeData = cloneDeep(data.data);
 
-    // TODO:
-    nodeData.t1 = 1;
-    nodeData.t2 = 2;
-
-    modelRef.value = { field1: nodeData.t1, field2: nodeData.t2 };
+    if (nodeRef.data.label !== 'undefined') {
+      let key = nodeRef.data.label + 'Settings';
+      if (Object.prototype.hasOwnProperty.call(settings, key)) {
+        await setProps({
+          labelWidth: 140,
+          schemas: settings[key],
+          showActionButtonGroup: false,
+          actionColOptions: {
+            span: 24,
+          },
+        });
+        await resetFields();
+        await setFieldsValue(nodeRef.data);
+      }
+    }
   }
 
-  const cloneDeep = <T,>(target: T): T => {
-    if (target === null) {
-      return target;
+  async function handleOk(_e: Event) {
+    let values = await validate();
+    if (values) {
+      nodeRef ? (nodeRef.data = cloneDeep({ label: nodeRef.data.label, ...values })) : null;
+      closeModal();
     }
-    if (target instanceof Date) {
-      return new Date(target.getTime()) as any;
-    }
-    if (target instanceof Array) {
-      const cp = [] as any[];
-      (target as any[]).forEach((v) => cp.push(v));
-      return cp.map((n: any) => cloneDeep<any>(n)) as any;
-    }
-    if (typeof target === 'object' && JSON.stringify(target) === '{}') {
-      const cp = { ...(target as { [key: string]: any }) } as { [key: string]: any };
-      Object.keys(cp).forEach((k) => {
-        cp[k] = cloneDeep<any>(cp[k]);
-      });
-      return cp as T;
-    }
-    return target;
-  };
-
-  function handleOk(_e: Event) {
-    nodeRef ? (nodeRef.data = nodeData) : null;
-    closeModal();
   }
 </script>

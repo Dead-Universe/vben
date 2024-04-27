@@ -1,6 +1,8 @@
 <template>
   <Layout>
-    <LayoutSider collapsible collapsedWidth="0" theme="light" width="240"><Sidebar /></LayoutSider>
+    <LayoutSider collapsible collapsedWidth="0" theme="light" width="240">
+      <Sidebar />
+    </LayoutSider>
     <LayoutContent>
       <div class="dndflow" @drop="onDrop">
         <VueFlow :nodes="nodes" @dragover="onDragOver" @dragleave="onDragLeave">
@@ -106,10 +108,5 @@
     flex-direction: column;
     width: 100%;
     height: calc(100vh - 152px);
-  }
-
-  .dndflow .vue-flow-wrapper {
-    flex-grow: 1;
-    height: 100%;
   }
 </style>
