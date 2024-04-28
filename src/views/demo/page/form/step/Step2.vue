@@ -41,7 +41,7 @@
   async function customSubmitFunc() {
     try {
       const values = await validate();
-      setProps({
+      await setProps({
         submitButtonOptions: {
           loading: true,
         },

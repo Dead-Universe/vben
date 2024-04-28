@@ -20,9 +20,9 @@
 
   const chart: Ref<any> = ref(null);
 
-  var options: EChartsOption = {};
+  let options: EChartsOption = {};
 
-  var dataset: any = {};
+  let dataset: any = {};
 
   const [register, { openDrawer }] = useDrawer();
 
@@ -44,7 +44,7 @@
                 : undefined,
       });
     }
-    let value = {
+    let value: EChartsOption = {
       dataset: dataset,
       parallelAxis: axis,
       series: {

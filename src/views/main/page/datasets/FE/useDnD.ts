@@ -1,5 +1,5 @@
-import { useVueFlow } from '@vue-flow/core';
-import { Ref, ref, watch } from 'vue';
+import { type Node, useVueFlow } from '@vue-flow/core';
+import { type Ref, ref, watch } from 'vue';
 
 let id = 0;
 
@@ -7,7 +7,7 @@ let id = 0;
  * @returns {string} - A unique id.
  */
 function getId(): string {
-  return `dndnode_${id++}`;
+  return `FENode_${id++}`;
 }
 
 /**
@@ -30,18 +30,28 @@ const state: {
 export default function useDragAndDrop() {
   const { draggedType, isDragOver, isDragging } = state;
 
-  const { addNodes, screenToFlowCoordinate, onNodesInitialized, updateNode } = useVueFlow();
+  const {
+    addNodes,
+    screenToFlowCoordinate,
+    onNodesInitialized,
+    updateNode,
+    onConnect,
+    addEdges,
+    onEdgeContextMenu,
+    removeEdges,
+    onNodeContextMenu,
+    removeNodes,
+    toObject,
+  } = useVueFlow();
 
   watch(isDragging, (dragging) => {
     document.body.style.userSelect = dragging ? 'none' : '';
   });
 
-  function onDragStart(
-    event: { dataTransfer: { setData: (arg0: string, arg1: any) => void; effectAllowed: string } },
-    type: string | undefined,
-  ) {
+  function onDragStart(event: DragEvent, type: string, func: string) {
     if (event.dataTransfer) {
       event.dataTransfer.setData('application/vueflow', type);
+      event.dataTransfer.setData('application/func', func);
       event.dataTransfer.effectAllowed = 'move';
     }
 
@@ -56,7 +66,7 @@ export default function useDragAndDrop() {
    *
    * @param {DragEvent} event
    */
-  function onDragOver(event: any) {
+  function onDragOver(event: DragEvent) {
     event.preventDefault();
 
     if (draggedType.value) {
@@ -92,11 +102,15 @@ export default function useDragAndDrop() {
 
     const nodeId = getId();
 
-    const newNode = {
+    const func = event.dataTransfer?.getData('application/func');
+
+    const newNode: Node = {
       id: nodeId,
       type: draggedType.value,
       position,
-      label: `[${nodeId}]`,
+      data: {
+        label: `${func}`,
+      },
     };
 
     /**
@@ -126,5 +140,12 @@ export default function useDragAndDrop() {
     onDragLeave,
     onDragOver,
     onDrop,
+    onConnect,
+    addEdges,
+    onEdgeContextMenu,
+    removeEdges,
+    onNodeContextMenu,
+    removeNodes,
+    toObject,
   };
 }

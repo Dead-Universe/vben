@@ -1,7 +1,9 @@
 <template>
   <PageWrapper :class="prefixCls" title="数据集管理" contentFullHeight fixedHeight>
     <template #headerContent>
-      <a-button type="primary" preIcon="ant-design:cloud-upload-outlined">上传</a-button>
+      <a-button type="primary" preIcon="ant-design:cloud-upload-outlined" @click="handleUpdate">
+        上传
+      </a-button>
     </template>
 
     <div :class="`${prefixCls}__container`">
@@ -44,22 +46,27 @@
     </div>
     <EDA @register="registerEDA" />
     <FE @register="registerFE" />
+    <Modal @register="register" />
   </PageWrapper>
 </template>
 <script lang="ts" setup>
   import { List, Skeleton, Avatar } from 'ant-design-vue';
-  import { onMounted, ref, nextTick } from 'vue';
+  import { onMounted, ref } from 'vue';
   // import { BasicForm } from '@/components/Form';
   import { PageWrapper } from '@/components/Page';
   import { useDrawer } from '@/components/Drawer';
+  import Modal from './Modal.vue';
 
   // import { defHttp } from '@/utils/http/axios';
 
-  import FE from './FE/index.vue';
+  import FE from './FE/Drawer.vue';
   import EDA from './EDA/index.vue';
+  import { useModal } from '@/components/Modal';
 
   const [registerEDA, { openDrawer: openEDADrawer }] = useDrawer();
   const [registerFE, { openDrawer: openFEDrawer }] = useDrawer();
+
+  const [register, { openModal: openModal }] = useModal();
 
   const prefixCls = 'list-search';
   const count = 10;
@@ -81,12 +88,6 @@
         loading.value = false;
         data.value = newData;
         list.value = newData;
-        nextTick(() => {
-          // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-          // In real scene, you can using public method of react-virtualized:
-          // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-          window.dispatchEvent(new Event('resize'));
-        });
       });
   };
 
@@ -96,6 +97,10 @@
 
   const openFE = (id: number | string) => {
     openFEDrawer(true, { id: id });
+  };
+
+  const handleUpdate = () => {
+    openModal(true);
   };
 
   onMounted(() => {
