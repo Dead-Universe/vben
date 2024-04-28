@@ -1,37 +1,38 @@
 import { FormSchema } from '@/components/Form';
 
-export const searchList = (() => {
-  const result: any[] = [];
-  for (let i = 0; i < 120; i++) {
-    result.push({
-      id: i,
-      title: 'Vben Admin',
-      description: ['Vben', '设计语言', 'Typescript'],
-      content: '基于Vue Next, TypeScript, Ant Design实现的一套完整的企业级后台管理系统。',
-      time: '2020-11-14 11:20',
-    });
-  }
-  return result;
-})();
-
-export const actions: any[] = [
-  { icon: 'clarity:star-line', text: '156', color: '#018ffb' },
-  { icon: 'bx:bxs-like', text: '156', color: '#459ae8' },
-  { icon: 'bx:bxs-message-dots', text: '2', color: '#42d27d' },
-];
-
 export const schemas: FormSchema[] = [
   {
-    field: 'field1',
-    component: 'InputSearch',
-    label: '数据集名称',
+    field: 'name',
+    component: 'Input',
+    label: '名称',
+    required: true,
     colProps: {
-      span: 8,
+      span: 24,
     },
-    componentProps: {
-      onChange: (e: any) => {
-        console.log(e);
-      },
+  },
+  {
+    field: 'description',
+    component: 'InputTextArea',
+    label: '描述',
+    helpMessage: '数据集的详细描述',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'source',
+    component: 'Input',
+    label: '来源',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'data_type',
+    component: 'Input',
+    label: '类型',
+    colProps: {
+      span: 24,
     },
   },
 ];

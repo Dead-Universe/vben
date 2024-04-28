@@ -7,7 +7,7 @@ let id = 0;
  * @returns {string} - A unique id.
  */
 function getId(): string {
-  return `dndnode_${id++}`;
+  return `FENode_${id++}`;
 }
 
 /**
@@ -30,7 +30,19 @@ const state: {
 export default function useDragAndDrop() {
   const { draggedType, isDragOver, isDragging } = state;
 
-  const { addNodes, screenToFlowCoordinate, onNodesInitialized, updateNode } = useVueFlow();
+  const {
+    addNodes,
+    screenToFlowCoordinate,
+    onNodesInitialized,
+    updateNode,
+    onConnect,
+    addEdges,
+    onEdgeContextMenu,
+    removeEdges,
+    onNodeContextMenu,
+    removeNodes,
+    toObject,
+  } = useVueFlow();
 
   watch(isDragging, (dragging) => {
     document.body.style.userSelect = dragging ? 'none' : '';
@@ -128,5 +140,12 @@ export default function useDragAndDrop() {
     onDragLeave,
     onDragOver,
     onDrop,
+    onConnect,
+    addEdges,
+    onEdgeContextMenu,
+    removeEdges,
+    onNodeContextMenu,
+    removeNodes,
+    toObject,
   };
 }

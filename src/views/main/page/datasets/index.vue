@@ -46,6 +46,7 @@
     </div>
     <EDA @register="registerEDA" />
     <FE @register="registerFE" />
+    <Modal @register="register" />
   </PageWrapper>
 </template>
 <script lang="ts" setup>
@@ -54,14 +55,18 @@
   // import { BasicForm } from '@/components/Form';
   import { PageWrapper } from '@/components/Page';
   import { useDrawer } from '@/components/Drawer';
+  import Modal from './Modal.vue';
 
   // import { defHttp } from '@/utils/http/axios';
 
   import FE from './FE/Drawer.vue';
   import EDA from './EDA/index.vue';
+  import { useModal } from '@/components/Modal';
 
   const [registerEDA, { openDrawer: openEDADrawer }] = useDrawer();
   const [registerFE, { openDrawer: openFEDrawer }] = useDrawer();
+
+  const [register, { openModal: openModal }] = useModal();
 
   const prefixCls = 'list-search';
   const count = 10;
@@ -94,7 +99,9 @@
     openFEDrawer(true, { id: id });
   };
 
-  const handleUpdate = () => {};
+  const handleUpdate = () => {
+    openModal(true);
+  };
 
   onMounted(() => {
     fetch(fakeDataUrl)

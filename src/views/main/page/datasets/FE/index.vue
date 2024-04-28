@@ -19,9 +19,8 @@
   <Modal @register="register" />
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
   import { Layout, LayoutContent, LayoutSider } from 'ant-design-vue';
-  import { type Connection, VueFlow, useVueFlow } from '@vue-flow/core';
+  import { type Connection, VueFlow, type GraphNode } from '@vue-flow/core';
 
   import Sidebar from './Sidebar.vue';
   import Modal from './Modal.vue';
@@ -32,16 +31,26 @@
   import { useModal } from '@/components/Modal';
 
   import useDragAndDrop from './useDnD';
+  import { type Ref, ref } from 'vue';
 
   const [createContextMenu] = useContextMenu();
   const { createMessage } = useMessage();
 
-  const { onConnect, addEdges, onEdgeContextMenu, removeEdges, onNodeContextMenu, removeNodes } =
-    useVueFlow();
+  const nodes: Ref<GraphNode[]> = ref([]);
 
-  const { onDragOver, onDrop, onDragLeave, isDragOver } = useDragAndDrop();
-
-  const nodes = ref([]);
+  const {
+    onDragOver,
+    onDrop,
+    onDragLeave,
+    isDragOver,
+    onEdgeContextMenu,
+    removeEdges,
+    onNodeContextMenu,
+    onConnect,
+    removeNodes,
+    addEdges,
+    toObject,
+  } = useDragAndDrop();
 
   const [register, { openModal: openModal }] = useModal();
 
@@ -73,7 +82,7 @@
       event: event as MouseEvent,
       items: [
         {
-          label: '编辑',
+          label: '设置',
           icon: 'ant-design:edit-outlined',
           handler: () => {
             openModal(true, node);
@@ -92,8 +101,10 @@
   });
 
   onConnect((param: Connection) => {
-    addEdges(param);
+    addEdges({ ...param, animated: true });
   });
+
+  defineExpose({ nodes, toObject });
 </script>
 <style>
   @import '@vue-flow/core/dist/style.css';

@@ -1,6 +1,6 @@
 import { FormSchema } from '@/components/Form';
 
-const validatorNumber = async (value, number) => {
+const validatorNumber = async (value: number, number: number) => {
   if (value < number) {
     return Promise.reject('值不能小于' + number);
   }
@@ -131,20 +131,28 @@ const word2VecSettings: FormSchema[] = [
 
 const countVectorizerSettings: FormSchema[] = [
   {
+    field: 'inputCol',
+    component: 'Input',
+    label: '输入列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'outputCol',
+    component: 'Input',
+    label: '输出列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
     field: 'binary',
     component: 'Switch',
     defaultValue: false,
     label: '二值化',
     helpMessage:
       '二值化开关用以控制输出向量的值。如果设置为True，在应用最小TF过滤器后所有非零计数都会设置为1。这对于建模二值化事件而不是整数计数的离散概率模型非常有用',
-    colProps: {
-      span: 24,
-    },
-  },
-  {
-    field: 'inputCol',
-    component: 'Input',
-    label: '输入列',
     colProps: {
       span: 24,
     },
@@ -199,14 +207,6 @@ const countVectorizerSettings: FormSchema[] = [
         trigger: 'blur',
       },
     ],
-  },
-  {
-    field: 'outputCol',
-    component: 'Input',
-    label: '输出列',
-    colProps: {
-      span: 24,
-    },
   },
   {
     field: 'vocabSize',
@@ -306,6 +306,14 @@ const PCASettings: FormSchema[] = [
     },
   },
   {
+    field: 'outputCol',
+    component: 'Input',
+    label: '输出列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
     field: 'k',
     component: 'InputNumber',
     label: '主成分数量',
@@ -318,14 +326,6 @@ const PCASettings: FormSchema[] = [
         trigger: 'blur',
       },
     ],
-  },
-  {
-    field: 'outputCol',
-    component: 'Input',
-    label: '输出列',
-    colProps: {
-      span: 24,
-    },
   },
 ];
 
@@ -587,6 +587,14 @@ const RFormulaSettings: FormSchema[] = [
     },
   },
   {
+    field: 'labelCol',
+    component: 'Input',
+    label: '标签列',
+    colProps: {
+      span: 24,
+    },
+  },
+  {
     field: 'forceIndexLabel',
     component: 'Switch',
     label: '强制索引标签',
@@ -626,14 +634,6 @@ const RFormulaSettings: FormSchema[] = [
           value: 'keep',
         },
       ],
-    },
-  },
-  {
-    field: 'labelCol',
-    component: 'Input',
-    label: '标签列名称',
-    colProps: {
-      span: 24,
     },
   },
 ];

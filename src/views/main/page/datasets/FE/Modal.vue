@@ -1,5 +1,5 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="register" title="修改属性" @ok="handleOk">
+  <BasicModal v-bind="$attrs" @register="register" title="设置属性" @ok="handleOk">
     <div class="pt-3px pr-3px">
       <BasicForm @register="registerForm" />
     </div>
